@@ -1,0 +1,12 @@
+{
+  "name": "synclang-web",
+  "private": true,
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+
+  },
+  "keywords": ["synclang", "web", "synclang-web"],
+  "author": "seinixn",
+  "license": "MIT"
+}
