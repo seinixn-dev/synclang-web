@@ -1,6 +1,6 @@
 import { Link, Outlet, useMatches } from 'react-router-dom'
 import styles from './index.module.less'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { HomeOutlined } from '@ant-design/icons'
 import { routerMetaMap } from '@/router'
 import useAppStore from '@/store/app.tsx'
@@ -9,12 +9,6 @@ const App = () => {
   const { menuItemsMap, setMenuSelectedKeys, setBreadcrumbItems } = useAppStore()
   const matches = useMatches()
   const matchesCache = useRef<Record<string, string>[]>([])
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    // TODO: 防止初次加载时页面闪烁
-    setVisible(true)
-  }, [])
 
   useEffect(() => {
     if (
@@ -28,7 +22,8 @@ const App = () => {
     const currentLocation = matches[lastIndex]
     if (routerMetaMap.has(currentLocation.id)) {
       // 设置页面标题
-      document.title = routerMetaMap.get(currentLocation.id)?.title || 'Synclang'
+      const _title = routerMetaMap.get(currentLocation.id)?.title
+      document.title = _title ? `${_title} | Synclang` : 'Synclang'
     }
 
     // 设置面包屑
@@ -67,10 +62,13 @@ const App = () => {
       }
     }
   }, [matches, menuItemsMap])
+
   return (
-    <div className={styles.app} style={{ visibility: visible ? 'visible' : 'hidden' }}>
-      <Outlet />
-    </div>
+    <>
+      <div className={styles.app}>
+        <Outlet />
+      </div>
+    </>
   )
 }
 

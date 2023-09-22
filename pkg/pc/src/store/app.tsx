@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { MenuProps } from 'antd'
 import { BreadcrumbProps } from 'antd/es/breadcrumb/Breadcrumb'
+import { MeRes } from '@/api/type.ts'
 
 type MenuItem = Required<MenuProps>['items'][number]
 type BreadcrumbItems = BreadcrumbProps['items']
@@ -16,6 +17,8 @@ interface Props {
   setBreadcrumbItems: (breadcrumbItems: BreadcrumbItems) => void
   menuSelectedKeys: string[]
   setMenuSelectedKeys: (menuSelectedKeys: string[]) => void
+  currentUser: MeRes
+  setCurrentUser: (currentUser: MeRes) => void
 }
 
 const useAppStore = create<Props>((set) => ({
@@ -30,13 +33,18 @@ const useAppStore = create<Props>((set) => ({
         return map
       }, {})
     }),
-  asideCollapsed: false,
-  setAsideCollapsed: (asideCollapsed) => set({ asideCollapsed }),
+  asideCollapsed: window.localStorage.getItem('asideCollapsed') === 'true',
+  setAsideCollapsed: (asideCollapsed) => {
+    window.localStorage.setItem('asideCollapsed', String(asideCollapsed))
+    set({ asideCollapsed })
+  },
   toggleAsideCollapsed: () => set((state) => ({ asideCollapsed: !state.asideCollapsed })),
   breadcrumbItems: [],
   setBreadcrumbItems: (breadcrumbItems) => set({ breadcrumbItems: breadcrumbItems }),
   menuSelectedKeys: [],
-  setMenuSelectedKeys: (menuSelectedKeys) => set({ menuSelectedKeys })
+  setMenuSelectedKeys: (menuSelectedKeys) => set({ menuSelectedKeys }),
+  currentUser: { id: 0 },
+  setCurrentUser: (currentUser) => set({ currentUser })
 }))
 
 export default useAppStore

@@ -91,6 +91,33 @@ const routes: RouteObj[] = [
             ]
           }
         ]
+      },
+      {
+        path: '/login',
+        async lazy() {
+          const { default: Component } = await import('@/pages/login')
+          return { Component }
+        },
+        meta: {
+          title: '登录'
+        }
+      },
+      {
+        path: '/register',
+        async lazy() {
+          const { default: Component } = await import('@/pages/register')
+          return { Component }
+        },
+        meta: {
+          title: '注册'
+        }
+      },
+      {
+        path: '*',
+        async lazy() {
+          const { default: Component } = await import('@/pages/not-found')
+          return { Component }
+        }
       }
     ]
   }

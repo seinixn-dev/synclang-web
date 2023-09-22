@@ -1,5 +1,11 @@
-.flex-box(@justifyContent:flex-start, @alignItems:center){
-  display:flex;
+.flex-box(@justifyContent:flex-start, @alignItems:center,@flexDirection:row) {
+  display: flex;
   justify-content: @justifyContent;
   align-items: @alignItems;
+  flex-direction: @flexDirection;
+}
+
+.wh100 {
+  width: 100%;
+  height: 100%;
 }

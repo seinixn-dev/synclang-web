@@ -2,7 +2,7 @@ export const Home = () => {
   return (
     <div>
       <h1>Synclang</h1>
-      <p>是一个 I18N 管理平台</p>
+      <p>是一个多语言管理平台</p>
     </div>
   )
 }
