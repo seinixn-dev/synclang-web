@@ -2,13 +2,14 @@ import { ApiPath } from '@/api/path.ts'
 import { LoginReq } from '@/api/type.ts'
 import { App, Button, Form, Input } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styles from './index.module.less'
 import { useEffect } from 'react'
 import { useMyMutation } from '@/hooks/api.tsx'
+import { useMyNavigate } from '@/hooks/navigate.tsx'
 
 const Login = () => {
-  const navigate = useNavigate()
+  const { toHomePage } = useMyNavigate()
   const { message } = App.useApp()
 
   const loginMutation = useMyMutation(ApiPath.login)
@@ -21,7 +22,7 @@ const Login = () => {
     if (loginMutation.isSuccess) {
       message.success('登录成功')
       window.localStorage.setItem('token', loginMutation.data?.token || '')
-      navigate('/')
+      toHomePage()
     }
   }, [loginMutation.isSuccess])
 
@@ -29,7 +30,7 @@ const Login = () => {
     <div className={styles.login}>
       <div className={styles.loginBox}>
         <h1 className={styles.title}>Synclang</h1>
-        <p className={styles.desc}>致力成为最好用的多语言管理平台</p>
+        <p className={styles.desc}>一个多语言管理平台</p>
         <Form size={'large'} onFinish={toLogin}>
           <Form.Item
             name={'username'}

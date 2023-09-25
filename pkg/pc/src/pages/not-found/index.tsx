@@ -1,10 +1,10 @@
 import styles from './index.module.less'
 import { Button } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import { useMyNavigate } from '@/hooks/navigate.tsx'
 const NotFound = () => {
-  const navigate = useNavigate()
+  const { toHomePage } = useMyNavigate()
   const goBack = () => {
-    navigate('/')
+    toHomePage()
   }
   return (
     <div className={styles.notFound}>

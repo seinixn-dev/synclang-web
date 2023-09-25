@@ -6,7 +6,7 @@ import { routerMetaMap } from '@/router'
 import useAppStore from '@/store/app.tsx'
 
 const App = () => {
-  const { menuItemsMap, setMenuSelectedKeys, setBreadcrumbItems } = useAppStore()
+  const { menuItemsMap, setMenuSelectedKeys, setBreadcrumbItems, setPageTitle } = useAppStore()
   const matches = useMatches()
   const matchesCache = useRef<Record<string, string>[]>([])
 
@@ -24,6 +24,7 @@ const App = () => {
       // 设置页面标题
       const _title = routerMetaMap.get(currentLocation.id)?.title
       document.title = _title ? `${_title} | Synclang` : 'Synclang'
+      setPageTitle(_title || '')
     }
 
     // 设置面包屑

@@ -1,13 +1,14 @@
 import { Outlet } from 'react-router-dom'
-import { Breadcrumb, Layout } from 'antd'
+import { Layout } from 'antd'
 import Aside from '@/components/Aside'
-import styles from './index.module.less'
 import Header from '@/components/Header'
 import Menu from '@/components/Menu'
+import styles from './index.module.less'
+import PageHeader from '@/components/pageHeader'
 import useAppStore from '@/store/app.tsx'
 
 const Inner = () => {
-  const { breadcrumbItems } = useAppStore()
+  const { isShowHeader } = useAppStore()
   return (
     <Layout className={styles.inner}>
       <Aside>
@@ -17,9 +18,10 @@ const Inner = () => {
         <Header />
         <Layout.Content className={styles.content}>
           <div className={styles.contentInner}>
-            {/*面包屑*/}
-            <Breadcrumb items={breadcrumbItems} />
-            <Outlet />
+            {isShowHeader && <PageHeader />}
+            <section className={styles.mainContext}>
+              <Outlet />
+            </section>
           </div>
         </Layout.Content>
       </Layout>

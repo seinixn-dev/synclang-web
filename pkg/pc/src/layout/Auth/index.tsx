@@ -4,19 +4,28 @@ import { useMyQuery } from '@/hooks/api.tsx'
 import { Spin } from 'antd'
 import styles from './index.module.less'
 import { useEffect, useState } from 'react'
+import useAppStore from '@/store/app.tsx'
 
 const PageLoading = () => {
   return (
     <div className={styles.pageLoading}>
       <Spin size={'large'} />
-      <p className={styles.tip}>加载中</p>
+      <p className={styles.tip}>加载中...</p>
     </div>
   )
 }
 
 const Auth = () => {
+  const { setCurrentUser } = useAppStore()
   const meQuery = useMyQuery(ApiPath.me)
   const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    if (meQuery.isSuccess) {
+      setCurrentUser(meQuery.data)
+    }
+  }, [meQuery.data])
+
   useEffect(() => {
     setTimeout(() => {
       setVisible(true)
