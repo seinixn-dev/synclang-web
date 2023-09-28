@@ -25,8 +25,14 @@ export interface MeRes {
   nickname?: string
   email?: string
 }
+
+export interface ProjectCreateReq {
+  name: string
+  desc?: string
+}
 export interface ApiTypes {
   [ApiPath.login]: [LoginReq, { token: string }]
   [ApiPath.register]: [RegisterReq, RegisterRes]
   [ApiPath.me]: [undefined, MeRes]
+  [ApiPath.projectCreate]: [ProjectCreateReq, { id: number }]
 }
